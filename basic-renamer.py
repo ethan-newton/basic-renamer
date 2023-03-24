@@ -15,7 +15,13 @@ renaming_type = input("What type of renaming do you want to do? Choose one of th
                       "8. Replace space for underscore\n"
                       "9. Replace space for dash\n"
                       "10. Text in camelCase\n"
+                      "11. Replace a portion of the file name\n"
                       "Enter the number of your choice: ")
+
+# Ask the user for the old and new parts of the file name to replace
+if renaming_type == "11":
+    old_part = input("Enter the old part of the file name to replace: ")
+    new_part = input("Enter the new part of the file name to replace it with: ")
 
 # Loop through each file
 for file in files:
@@ -45,6 +51,11 @@ for file in files:
             words = file.replace("_", " ").replace("-", " ").split(" ")
             new_words = [words[0].lower()] + [word.capitalize() for word in words[1:]]
             new_file_name = "".join(new_words)
+        elif renaming_type == "11":
+            new_file_name = file.replace(old_part, new_part)
+        else:
+            # If the user enters an invalid option, skip the file
+            continue
         
         # Rename the file
         os.rename(file, new_file_name)
